@@ -9,12 +9,20 @@ import vector1 from "./assets/vector1.png";
 import vector2 from "./assets/vector2.png"; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import Tickets from './tickets';
+
 
 
 
 
 
 function App() {
+  const [progress, set_progress]=useState(0);
+  function handleProgress(){set_progress(progress+1)};
+  const [resolve, set_resolve]=useState(0);
+  function handleResolve(){set_resolve(resolve+1); set_progress(progress-1)};
+
+
   
 
   return (
@@ -44,16 +52,29 @@ function App() {
   
 </div>
 <div className='container flex justify-center items-center space-x-10 border-4 border-red-400 h-100 w-400'>
-  <div className="left-box rounded-2xl flex justify-center items-center border-2 border-blue-600 bg-gradient-to-r from-[#632EE3] to-[#9F62F2] h-[280px] w-[600px] px-6">
-  <img className=' h-70 w-70 ' src={vector1} alt="vector1" />In-Progress
+  <div className="left-box overflow-hidden rounded-2xl flex justify-center items-center border-2 border-blue-600 bg-gradient-to-r from-[#632EE3] to-[#9F62F2] h-[280px] w-[600px] px-6">
+  <img className=' h-70 w-70 ' src={vector1} alt="vector1" /><p className='border-2 inline-block relative  '>Progress<br></br>{progress}</p>
   <img className=' h-70 w-70 transform scale-x-[-1] ' src={vector1} alt="vector1" /> 
   </div>
  
 
-  <div className='right-box rounded-2xl flex justify-center items-center border-2 bg-gradient-to-r from-[#54CF68] to-[#00827A] border-green-600 h-70 w-150'>
-    <img className=' h-70 w-70 ' src={vector1} alt="vector1" />Resolved
+  <div className='right-box overflow-hidden rounded-2xl flex justify-center items-center border-2 bg-gradient-to-r from-[#54CF68] to-[#00827A] border-green-600 h-70 w-150'>
+    <img className=' h-70 w-70 ' src={vector1} alt="vector1" /><p className='border-2 inline-block relative  '>Resolved<br></br>{resolve}</p>
   <img className=' h-70 w-70 transform scale-x-[-1] ' src={vector1} alt="vector1" /> 
   </div>
+ </div>
+ <div>
+<Tickets></Tickets>
+ </div>
+ <div><p>{progress}</p>
+  <button onClick={handleProgress}>
+    yo yo 
+  </button>
+ </div>
+ <div><p>{resolve}</p>
+  <button onClick={handleResolve}>
+    boo boo 
+  </button>
  </div>
 
       
