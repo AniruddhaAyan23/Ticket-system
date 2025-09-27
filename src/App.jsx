@@ -4,84 +4,78 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import React from 'react';
 
-
 import vector1 from "./assets/vector1.png";
 import vector2 from "./assets/vector2.png"; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Tickets from './tickets';
-
-
-
-
-
-
+import Footer from './Footer';
 function App() {
-  const [progress, set_progress]=useState(0);
-  function handleProgress(){set_progress(progress+1)};
-  const [resolve, set_resolve]=useState(0);
-  function handleResolve(){set_resolve(resolve+1); set_progress(progress-1)};
+  const [progress, set_progress] = useState(0);
+  const [resolve, set_resolve] = useState(0);
 
+  // Functions to handle progress changes from Tickets component
+  const handleProgressIncrease = () => {
+    set_progress(progress + 1);
+  };
 
-  
+  const handleProgressDecrease = () => {
+    set_resolve(resolve + 1);
+    set_progress(progress - 1);
+  };
 
   return (
     <>
       <div className="navbar bg-base-100 shadow-sm">
-  <div className="flex-1">
-    <a className="CS text-xl ml-4 font-bold">CS-Ticket System </a>
-  </div>
-  <div className="flex-none">
-    
-    <div className="nav space-x-6">
-    <span>Home </span>
-    <span>FAQ </span>
-    <span>Changelog </span>
-    <span>Blog </span>
-    <span>Download </span>
-    <span>Contact </span>
-    <button className="new tickets mr-4 p-4 bg-[#422AD5] text-white rounded">
-    <FontAwesomeIcon icon={faPlus} />
-    New Ticket
-    </button>
-    </div>
-    
+        <div className="flex-1">
+          <a className="CS text-xl ml-4 font-bold">CS-Ticket System </a>
+        </div>
+        <div className="flex-none">
+          <div className="nav space-x-6">
+            <span>Home </span>
+            <span>FAQ </span>
+            <span>Changelog </span>
+            <span>Blog </span>
+            <span>Download </span>
+            <span>Contact </span>
+            <button className="new tickets mr-4 p-4 bg-[#422AD5] text-white rounded">
+              <FontAwesomeIcon icon={faPlus} />
+              New Ticket
+            </button>
+          </div>
+        </div>
+      </div>
 
-    
+      <div className='container flex justify-center items-center space-x-10 h-[400px] w-[1000px] mx-auto my-6'>
+  <div className="left-box overflow-hidden rounded-2xl flex justify-center items-center bg-gradient-to-r from-[#632EE3] to-[#9F62F2] h-[280px] w-[500px] px-6">
+    <img className=' h-[280px] w-[200px]' src={vector1} alt="vector1" />
+    <p className='text-white text-xl font-semibold text-center mx-4'>
+      In-Progress<br />
+      <span className="text-3xl font-bold">{progress}</span>
+    </p>
+    <img className='h-[280px] w-[200px] transform scale-x-[-1]' src={vector1} alt="vector1" /> 
   </div>
-  
+
+  <div className='right-box overflow-hidden rounded-2xl flex justify-center items-center bg-gradient-to-r from-[#54CF68] to-[#00827A] border-green-600 h-[280px] w-[500px]'>
+    <img className='h-[280px] w-[200px]' src={vector1} alt="vector1" />
+    <p className='text-white text-xl font-semibold text-center mx-4'>
+      Resolved<br />
+      <span className="text-3xl font-bold">{resolve}</span>
+    </p>
+    <img className='h-[280px] w-[200px] transform scale-x-[-1]' src={vector1} alt="vector1" /> 
+  </div>
 </div>
-<div className='container flex justify-center items-center space-x-10 border-4 border-red-400 h-100 w-400'>
-  <div className="left-box overflow-hidden rounded-2xl flex justify-center items-center border-2 border-blue-600 bg-gradient-to-r from-[#632EE3] to-[#9F62F2] h-[280px] w-[600px] px-6">
-  <img className=' h-70 w-70 ' src={vector1} alt="vector1" /><p className='border-2 inline-block relative  '>Progress<br></br>{progress}</p>
-  <img className=' h-70 w-70 transform scale-x-[-1] ' src={vector1} alt="vector1" /> 
-  </div>
- 
 
-  <div className='right-box overflow-hidden rounded-2xl flex justify-center items-center border-2 bg-gradient-to-r from-[#54CF68] to-[#00827A] border-green-600 h-70 w-150'>
-    <img className=' h-70 w-70 ' src={vector1} alt="vector1" /><p className='border-2 inline-block relative  '>Resolved<br></br>{resolve}</p>
-  <img className=' h-70 w-70 transform scale-x-[-1] ' src={vector1} alt="vector1" /> 
-  </div>
- </div>
- <div>
-<Tickets></Tickets>
- </div>
- <div><p>{progress}</p>
-  <button onClick={handleProgress}>
-    yo yo 
-  </button>
- </div>
- <div><p>{resolve}</p>
-  <button onClick={handleResolve}>
-    boo boo 
-  </button>
- </div>
-
-      
-      
-      
+      <div>
+        <Tickets 
+          onProgressIncrease={handleProgressIncrease}
+          onProgressDecrease={handleProgressDecrease}
+        />
+      </div>
+      <Footer></Footer>
     </>
+    
   )
-
 }
+
 export default App

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Tickets = () => {
+const Tickets = ({ onProgressIncrease, onProgressDecrease }) => {
+    const [selectedTasks, setSelectedTasks] = useState([]);
+
     const tickets = [
         {
             id: "#1001",
@@ -121,6 +123,33 @@ const Tickets = () => {
         }
     };
 
+    // Function to handle clicking a ticket card
+    const handleTicketClick = (ticket) => {
+        // Check if ticket is already in selected tasks
+        const isAlreadySelected = selectedTasks.some(task => task.id === ticket.id);
+        
+        if (!isAlreadySelected) {
+            // Add to selected tasks
+            setSelectedTasks([...selectedTasks, ticket]);
+            // Call parent function to increase progress
+            onProgressIncrease();
+            // Show alert
+            alert(`"${ticket.title}" has been added to Task Status!`);
+        } else {
+            alert('This ticket is already in Task Status!');
+        }
+    };
+
+    // Function to complete a task
+    const handleCompleteTask = (taskId, taskTitle) => {
+        // Remove from selected tasks
+        setSelectedTasks(selectedTasks.filter(task => task.id !== taskId));
+        // Call parent function to decrease progress and increase resolve
+        onProgressDecrease();
+        // Show alert
+        alert(`Task "${taskTitle}" has been completed!`);
+    };
+
     return (
         <div className="min-h-screen bg-gray-50 p-6">
             <div className="max-w-7xl mx-auto">
@@ -132,7 +161,11 @@ const Tickets = () => {
                         {/* 2-column grid for ticket cards */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {tickets.map((ticket) => (
-                                <div key={ticket.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                                <div 
+                                    key={ticket.id} 
+                                    className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 cursor-pointer hover:shadow-md transition-shadow duration-200"
+                                    onClick={() => handleTicketClick(ticket)}
+                                >
                                     <div className="flex items-start justify-between mb-3">
                                         <div className="flex items-center space-x-3">
                                             <h3 className="font-medium text-gray-900 text-sm">{ticket.title}</h3>
@@ -172,11 +205,36 @@ const Tickets = () => {
                     {/* Task Status Section - 1 column */}
                     <div className="lg:col-span-1">
                         <h2 className="text-xl font-semibold text-gray-800 mb-2">Task Status</h2>
-                        <p className="text-sm text-gray-600 mb-4">Select a ticket to add to Task Status.</p>
+                        <p className="text-sm text-gray-600 mb-4">Click on a ticket to add to Task Status.</p>
 
                         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                            <h3 className="font-medium text-gray-900 mb-2">Resolved Task</h3>
-                            <p className="text-sm text-gray-500">No resolved tasks yet.</p>
+                            <h3 className="font-medium text-gray-900 mb-4">In Progress Tasks</h3>
+                            
+                            {selectedTasks.length === 0 ? (
+                                <p className="text-sm text-gray-500">No tasks in progress yet.</p>
+                            ) : (
+                                <div className="space-y-3">
+                                    {selectedTasks.map((task) => (
+                                        <div key={task.id} className="border border-gray-200 rounded-lg p-3">
+                                            <div className="flex items-start justify-between">
+                                                <div>
+                                                    <h4 className="font-medium text-gray-900 text-sm mb-1">{task.title}</h4>
+                                                    <p className="text-xs text-gray-500">{task.id}</p>
+                                                </div>
+                                            </div>
+                                            <button 
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleCompleteTask(task.id, task.title);
+                                                }}
+                                                className="mt-3 w-full bg-green-600 text-white text-sm py-2 px-4 rounded hover:bg-green-700 transition-colors duration-200"
+                                            >
+                                                Complete Task
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
