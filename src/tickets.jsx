@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const Tickets = ({ onProgressIncrease, onProgressDecrease }) => {
     const [selectedTasks, setSelectedTasks] = useState([]);
+    const [resolvedTasks, setResolvedTasks] = useState([]);
 
     const tickets = [
         {
@@ -134,20 +136,27 @@ const Tickets = ({ onProgressIncrease, onProgressDecrease }) => {
             // Call parent function to increase progress
             onProgressIncrease();
             // Show alert
-            alert(`"${ticket.title}" has been added to Task Status!`);
+            toast(`"${ticket.title}" has been added to Task Status!`);
         } else {
-            alert('This ticket is already in Task Status!');
+            toast('This ticket is already in Task Status!');
         }
     };
 
     // Function to complete a task
     const handleCompleteTask = (taskId, taskTitle) => {
+        // Find the completed task
+        const completedTask = selectedTasks.find(task => task.id === taskId);
+        
         // Remove from selected tasks
         setSelectedTasks(selectedTasks.filter(task => task.id !== taskId));
+        
+        // Add to resolved tasks
+        setResolvedTasks([...resolvedTasks, completedTask]);
+        
         // Call parent function to decrease progress and increase resolve
         onProgressDecrease();
         // Show alert
-        alert(`Task "${taskTitle}" has been completed!`);
+        toast(`Task "${taskTitle}" has been completed!`);
     };
 
     return (
@@ -219,7 +228,7 @@ const Tickets = ({ onProgressIncrease, onProgressDecrease }) => {
                                             <div className="flex items-start justify-between">
                                                 <div>
                                                     <h4 className="font-medium text-gray-900 text-sm mb-1">{task.title}</h4>
-                                                    <p className="text-xs text-gray-500">{task.id}</p>
+                                                    
                                                 </div>
                                             </div>
                                             <button 
@@ -227,10 +236,36 @@ const Tickets = ({ onProgressIncrease, onProgressDecrease }) => {
                                                     e.stopPropagation();
                                                     handleCompleteTask(task.id, task.title);
                                                 }}
-                                                className="mt-3 w-full bg-green-600 text-white text-sm py-2 px-4 rounded hover:bg-green-700 transition-colors duration-200"
+                                                className="mt-3 w-full bg-green-600 text-white text-sm py-2 px-4 rounded "
                                             >
-                                                Complete Task
+                                                Complete 
                                             </button>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Resolved Tasks Section */}
+                        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mt-6">
+                            <h3 className="font-medium text-gray-900 mb-4">Resolved Tasks</h3>
+                            
+                            {resolvedTasks.length === 0 ? (
+                                <p className="text-sm text-gray-500">No resolved tasks yet.</p>
+                            ) : (
+                                <div className="space-y-3">
+                                    {resolvedTasks.map((task) => (
+                                        <div key={`resolved-${task.id}`} className="border  rounded-lg p-3">
+                                            <div className="flex items-start justify-between">
+                                                <div>
+                                                    <h4 className="font-medium text-gray-900 text-sm mb-1">{task.title}</h4>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                            <div className="mt-2">
+                                                
+                                            </div>
                                         </div>
                                     ))}
                                 </div>

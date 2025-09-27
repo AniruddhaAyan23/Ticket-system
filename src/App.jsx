@@ -3,13 +3,14 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import React from 'react';
-
+import { ToastContainer } from 'react-toastify';
 import vector1 from "./assets/vector1.png";
 import vector2 from "./assets/vector2.png"; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Tickets from './tickets';
 import Footer from './Footer';
+
 function App() {
   const [progress, set_progress] = useState(0);
   const [resolve, set_resolve] = useState(0);
@@ -73,6 +74,7 @@ function App() {
         />
       </div>
       <Footer></Footer>
+      <ToastContainer></ToastContainer>
     </>
     
   )
