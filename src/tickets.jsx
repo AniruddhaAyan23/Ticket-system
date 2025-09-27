@@ -251,9 +251,9 @@ const Tickets = ({ onProgressIncrease, onProgressDecrease }) => {
                             {resolvedTasks.length === 0 ? (
                                 <p className="text-sm text-gray-500">No resolved tasks yet.</p>
                             ) : (
-                                <div className="space-y-3 bg-blue-100">
+                                <div className="space-y-3 ">
                                     {resolvedTasks.map((task) => (
-                                        <div key={`resolved-${task.id}`} className="border  rounded-lg p-3">
+                                        <div key={`resolved-${task.id}`} className="border bg-blue-100  rounded-lg p-3">
                                             <div className="flex items-start justify-between">
                                                 <div>
                                                     <h4 className="font-medium text-gray-900 text-sm mb-1">{task.title}</h4>
