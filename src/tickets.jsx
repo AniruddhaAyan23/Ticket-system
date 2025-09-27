@@ -213,14 +213,12 @@ const Tickets = ({ onProgressIncrease, onProgressDecrease }) => {
 
                     {/* Task Status Section - 1 column */}
                     <div className="lg:col-span-1">
-                        <h2 className="text-xl font-semibold text-gray-800 mb-2">Task Status</h2>
-                        <p className="text-sm text-gray-600 mb-4">Click on a ticket to add to Task Status.</p>
 
                         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                            <h3 className="font-medium text-gray-900 mb-4">In Progress Tasks</h3>
+                            <h3 className="font-medium text-gray-900 mb-4">Task Status</h3>
                             
                             {selectedTasks.length === 0 ? (
-                                <p className="text-sm text-gray-500">No tasks in progress yet.</p>
+                                <p className="text-sm text-gray-500">Select a ticket to add to Task Status</p>
                             ) : (
                                 <div className="space-y-3">
                                     {selectedTasks.map((task) => (
@@ -253,7 +251,7 @@ const Tickets = ({ onProgressIncrease, onProgressDecrease }) => {
                             {resolvedTasks.length === 0 ? (
                                 <p className="text-sm text-gray-500">No resolved tasks yet.</p>
                             ) : (
-                                <div className="space-y-3">
+                                <div className="space-y-3 bg-blue-100">
                                     {resolvedTasks.map((task) => (
                                         <div key={`resolved-${task.id}`} className="border  rounded-lg p-3">
                                             <div className="flex items-start justify-between">
