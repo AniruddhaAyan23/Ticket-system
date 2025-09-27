@@ -125,37 +125,37 @@ const Tickets = ({ onProgressIncrease, onProgressDecrease }) => {
         }
     };
 
-    // Function to handle clicking a ticket card
+    
     const handleTicketClick = (ticket) => {
-        // Check if ticket is already in selected tasks
+        
         const isAlreadySelected = selectedTasks.some(task => task.id === ticket.id);
         
         if (!isAlreadySelected) {
-            // Add to selected tasks
+            
             setSelectedTasks([...selectedTasks, ticket]);
-            // Call parent function to increase progress
+            
             onProgressIncrease();
-            // Show alert
+            
             toast(`"${ticket.title}" has been added to Task Status!`);
         } else {
             toast('This ticket is already in Task Status!');
         }
     };
 
-    // Function to complete a task
+    
     const handleCompleteTask = (taskId, taskTitle) => {
-        // Find the completed task
+        
         const completedTask = selectedTasks.find(task => task.id === taskId);
         
-        // Remove from selected tasks
+        
         setSelectedTasks(selectedTasks.filter(task => task.id !== taskId));
         
-        // Add to resolved tasks
+        
         setResolvedTasks([...resolvedTasks, completedTask]);
         
-        // Call parent function to decrease progress and increase resolve
+        
         onProgressDecrease();
-        // Show alert
+        
         toast(`Task "${taskTitle}" has been completed!`);
     };
 
@@ -163,11 +163,11 @@ const Tickets = ({ onProgressIncrease, onProgressDecrease }) => {
         <div className="min-h-screen bg-gray-50 p-6">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Customer Tickets Section - 2 columns */}
+                    
                     <div className="lg:col-span-2">
                         <h2 className="text-xl font-semibold text-gray-800 mb-4">Customer Tickets</h2>
 
-                        {/* 2-column grid for ticket cards */}
+                        
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {tickets.map((ticket) => (
                                 <div 
@@ -211,7 +211,7 @@ const Tickets = ({ onProgressIncrease, onProgressDecrease }) => {
                         </div>
                     </div>
 
-                    {/* Task Status Section - 1 column */}
+                    
                     <div className="lg:col-span-1">
 
                         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -244,7 +244,7 @@ const Tickets = ({ onProgressIncrease, onProgressDecrease }) => {
                             )}
                         </div>
 
-                        {/* Resolved Tasks Section */}
+                        
                         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mt-6">
                             <h3 className="font-medium text-gray-900 mb-4">Resolved Tasks</h3>
                             

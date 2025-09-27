@@ -15,7 +15,7 @@ function App() {
   const [progress, set_progress] = useState(0);
   const [resolve, set_resolve] = useState(0);
 
-  // Functions to handle progress changes from Tickets component
+  
   const handleProgressIncrease = () => {
     set_progress(progress + 1);
   };
@@ -75,6 +75,7 @@ function App() {
       </div>
       <Footer></Footer>
       <ToastContainer></ToastContainer>
+      <vector2></vector2>
     </>
     
   )
